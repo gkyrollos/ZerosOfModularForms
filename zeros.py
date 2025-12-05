@@ -54,6 +54,13 @@ def Faber_polynomial_from_ratio(fratio):
 ##
 
 ## inverse of j
+def j_inverse(j_val):
+    # j-value is complex number
+    x = polygen(CC)
+    roots = (x^2-x+(1728/(4*j_val))).roots(CC)
+    a = roots[0][0]
+    x = I * (hypergeometric([1/6, 5/6], [1], 1-a) / hypergeometric([1/6, 5/6], [1], a))
+    return x
 
 # test find z such that j(z) = 732.545683918438*I
   
