@@ -58,8 +58,19 @@ def Faber_polynomial_from_ratio(fratio):
 # test find z such that j(z) = 732.545683918438*I
   
 ## move to fundamental domain
-
-# test 0.0814843217636616 + 0.000201769898445746*I
+def translate_to_fundamental_domain(z):
+    """ Translate a point in the complex plane to the fundamental domain of the upper half plane. """
+    
+    # REAL PART
+    if not (z.real() > -0.5 and z.real() <= 0.5):  # if R{z} in (-1/2, 1/2]
+        # translate to (-1/2, 1/2]
+        a = z.real()
+        return translate_to_fundamental_domain(z - floor(a + 0.5))
+    # NORM
+    if z.norm() < 1:
+        return translate_to_fundamental_domain(-1/z)
+    else: 
+        return z
 
   
 ## nice j inverse
@@ -72,5 +83,6 @@ def fundamental_domain(H, xmin=-0.6, xmax=0.6, ymin=0.7):
   # fundamental domain for SL_2(ZZ) action on upper half plane
   # up to imaginary part H
   return arc((0,0), 1, figsize=[20,10],sector=(pi/3,pi/2), aspect_ratio=1, xmin=xmin, xmax=xmax, ymin=ymin, ymax=H, ticks=[[],[]])+arc((0,0), 1, sector=(pi/2,2*pi/3), linestyle='dashed')+line([(0.5, sqrt(3)/2), (0.5, H)])+line([(-0.5, sqrt(3)/2), (-0.5, H)], linestyle='dashed')
-  
+
+
 
