@@ -46,9 +46,16 @@ def Eratio(k, qprec):
 
 j = j_invariant_qexp(qprec)
 
-def Faber_polynomial_from_ratio(fratio):
-  # produces a polynomial in j
+P = PolynomialRing(QQ, 'J')
+J = P.gen()
 
+def Faber_polynomial_from_ratio(fratio):
+    v=fratio.valuation()
+    av= fratio[v]
+    if v == 0:
+        return av
+    v*=-1 # v is a negative power 
+    return av*J**v + Faber_polynomial_from_ratio(fratio - av*j**v)
 ##
 ## Functions to find zeros of MF
 ##
