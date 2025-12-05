@@ -60,7 +60,6 @@ def Faber_polynomial_from_ratio(fratio):
 ## move to fundamental domain
 def translate_to_fundamental_domain(z):
     """ Translate a point in the complex plane to the fundamental domain of the upper half plane. """
-    
     # REAL PART
     if not (z.real() > -0.5 and z.real() <= 0.5):  # if R{z} in (-1/2, 1/2]
         # translate to (-1/2, 1/2]
@@ -69,8 +68,7 @@ def translate_to_fundamental_domain(z):
     # NORM
     if z.norm() < 1:
         return translate_to_fundamental_domain(-1/z)
-    else: 
-        return z
+    return z
 
   
 ## nice j inverse
