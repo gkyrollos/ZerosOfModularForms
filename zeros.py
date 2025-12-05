@@ -53,6 +53,16 @@ def Faber_polynomial_from_ratio(fratio):
 ## Functions to find zeros of MF
 ##
 
+## inverse of j
+
+# test find z such that j(z) = 732.545683918438*I
+  
+## move to fundamental domain
+
+# test 0.0814843217636616 + 0.000201769898445746*I
+
+  
+## nice j inverse
 
 ##
 ## Nice plots
