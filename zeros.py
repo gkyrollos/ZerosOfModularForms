@@ -57,3 +57,10 @@ def Faber_polynomial_from_ratio(fratio):
 ##
 ## Nice plots
 ##
+
+def fundamental_domain(H, xmin=-0.6, xmax=0.6, ymin=0.7):
+  # fundamental domain for SL_2(ZZ) action on upper half plane
+  # up to imaginary part H
+  return arc((0,0), 1, figsize=[20,10],sector=(pi/3,pi/2), aspect_ratio=1, xmin=xmin, xmax=xmax, ymin=ymin, ymax=H, ticks=[[],[]])+arc((0,0), 1, sector=(pi/2,2*pi/3), linestyle='dashed')+line([(0.5, sqrt(3)/2), (0.5, H)])+line([(-0.5, sqrt(3)/2), (-0.5, H)], linestyle='dashed')
+  
+
