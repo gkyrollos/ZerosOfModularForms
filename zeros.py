@@ -54,31 +54,38 @@ def Faber_polynomial_from_ratio(fratio):
 ##
 
 ## inverse of j
-def j_inverse(j_val):
-    # j-value is complex number
-    x = polygen(CC)
-    roots = (x^2-x+(1728/(4*j_val))).roots(CC)
-    a = roots[0][0]
-    x = I * (hypergeometric([1/6, 5/6], [1], 1-a) / hypergeometric([1/6, 5/6], [1], a))
-    return x
+def j_inverse_wiki(j_val):
+  # j-value is complex number
+  if j_val == 0:
+      return e^(2*pi*I/3)
+  x = polygen(CC)
+  roots = (x^2-x+(1728/(4*j_val))).roots(CC)
+  a = roots[0][0]
+  x = I * (hypergeometric([1/6, 5/6], [1], 1-a) / hypergeometric([1/6, 5/6], [1], a))
+  return x
 
 # test find z such that j(z) = 732.545683918438*I
   
 ## move to fundamental domain
 def translate_to_fundamental_domain(z):
-    """ Translate a point in the complex plane to the fundamental domain of the upper half plane. """
-    # REAL PART
-    if not (z.real() > -0.5 and z.real() <= 0.5):  # if R{z} in (-1/2, 1/2]
-        # translate to (-1/2, 1/2]
-        a = z.real()
-        return translate_to_fundamental_domain(z - floor(a + 0.5))
-    # NORM
-    if z.norm() < 1:
-        return translate_to_fundamental_domain(-1/z)
-    return z
+  """ Translate a point in the complex plane to the fundamental domain of the upper half plane. """
+  # REAL PART
+  if not (z.real() >= -0.5 and z.real() < 0.5):  # if R{z} in (-1/2, 1/2]
+    # translate to (-1/2, 1/2]
+    a = z.real()
+    return translate_to_fundamental_domain(z - floor(a + 0.5))
+  # NORM
+  if z.norm() < 1:
+    return translate_to_fundamental_domain(-1/z)
+  return z
 
   
 ## nice j inverse
+def j_inverse(j_val):
+  z = j_inverse_wiki(j_val)
+  z_fund = translate_to_fundamental_domain(z)
+  return z_fund
+
 
 ##
 ## Nice plots
