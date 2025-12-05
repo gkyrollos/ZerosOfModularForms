@@ -107,7 +107,7 @@ def fundamental_domain(H, xmin=-0.6, xmax=0.6, ymin=0.7):
 
 def find_roots(k, qprec):
   Ek = Eratio(k, qprec)
-  j_zeroes = Faber_polynomial_from_ratio(Ek)
+  j_zeroes = Faber_polynomial_from_ratio(Ek).roots() # George Added .roots
 
   j_roots = [x for (x,_) in j_zeroes]
   z_roots = []
