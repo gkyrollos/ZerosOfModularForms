@@ -84,7 +84,7 @@ def translate_to_fundamental_domain(z):
 def j_inverse(j_val):
   z = j_inverse_wiki(j_val)
   z_fund = translate_to_fundamental_domain(z)
-  return z_fund
+  return CC(z_fund)
 
 
 ##
@@ -98,3 +98,14 @@ def fundamental_domain(H, xmin=-0.6, xmax=0.6, ymin=0.7):
 
 
 
+def find_roots(k, qprec):
+  Ek = Eratio(k, qprec)
+  j_zeroes = Faber_polynomial_from_ratio(Ek)
+
+  j_roots = [x for (x,_) in j_zeroes]
+  z_roots = []
+
+  for x in j_roots:
+    z_root = j_inverse(x)
+    z_roots.append(z_root)
+  return z_roots
