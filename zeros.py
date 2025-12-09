@@ -4,8 +4,8 @@
 
 # Fall 2025
 
-Cprec = 100
-qprec = 100
+Cprec = 1000
+qprec = 1000
 CC = ComplexField(Cprec)
 
 ##
