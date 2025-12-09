@@ -82,7 +82,7 @@ def translate_to_fundamental_domain(z):
     a = z.real()
     return translate_to_fundamental_domain(z - floor(a + 0.5))
   # NORM
-  if z.norm() < 1:
+  if z.norm() < 1 or (z.norm()==1 and z.arg()<pi/2):
     return translate_to_fundamental_domain(-1/z)
   return z
 
