@@ -40,6 +40,13 @@ def Eratio(k, qprec):
   l = Integer((k-r)/12)
   return Eq(k,qprec)/(Delta**l*Ers[r])
 
+def fratio(f,k):
+  # careful, because qprec should be considerably larger than l so qprec >> k/12
+  rset = [0,4,6,8,10,14]
+  r = [u for u in rset if mod(k-u,12)==0][0]
+  l = Integer((k-r)/12)
+  return f/(Delta**l*Ers[r])
+
 ##
 ## Functions to get Faber Polynomials
 ##
