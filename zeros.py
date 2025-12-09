@@ -27,18 +27,18 @@ Delta = delta_qexp(qprec)
 
 E0 = 1
 E4 = Eq(4,qprec)
-E6 = Eq(4,qprec)
-E8 = Eq(4,qprec)
-E10 = Eq(4,qprec)
-E14 = Eq(4,qprec) # should be E2, but E2 is problematic
+E6 = Eq(6,qprec)
+E8 = Eq(8,qprec)
+E10 = Eq(10,qprec)
+E14 = Eq(14,qprec) # should be E2, but E2 is problematic
 Ers = {0:E0, 4:E4, 6:E6, 8:E8, 10:E10, 14:E14}
 
 def Eratio(k, qprec):
   # careful, because qprec should be considerably larger than l so qprec >> k/12
   rset = [0,4,6,8,10,14]
   r = [u for u in rset if mod(k-u,12)==0][0]
-  l = (k-r)/12
-  return Eq(k,qprec)/(Delta^l*Ers[r])
+  l = Integer((k-r)/12)
+  return Eq(k,qprec)/(Delta**l*Ers[r])
 
 ##
 ## Functions to get Faber Polynomials
@@ -64,9 +64,9 @@ def Faber_polynomial_from_ratio(fratio):
 def j_inverse_wiki(j_val):
   # j-value is complex number
   if j_val == 0:
-      return e^(2*pi*I/3)
+      return e**(2*pi*I/3)
   x = polygen(CC)
-  roots = (x^2-x+(1728/(4*j_val))).roots(CC)
+  roots = (x**2-x+(1728/(4*j_val))).roots(CC)
   a = roots[0][0]
   x = I * (hypergeometric([1/6, 5/6], [1], 1-a) / hypergeometric([1/6, 5/6], [1], a))
   return x
@@ -107,7 +107,7 @@ def fundamental_domain(H, xmin=-0.6, xmax=0.6, ymin=0.7):
 
 def find_roots(k, qprec):
   Ek = Eratio(k, qprec)
-  j_zeroes = Faber_polynomial_from_ratio(Ek).roots() # George Added .roots
+  j_zeroes = Faber_polynomial_from_ratio(Ek).roots(CC) # George Added .roots
 
   j_roots = [x for (x,_) in j_zeroes]
   z_roots = []
@@ -115,4 +115,4 @@ def find_roots(k, qprec):
   for x in j_roots:
     z_root = j_inverse(x)
     z_roots.append(z_root)
-  return z_roots
+  return fundamental_domain(2)+points(z_roots,color='red')
