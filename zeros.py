@@ -112,6 +112,6 @@ def find_roots(fratio):
   z_roots = []
 
   for x in j_roots:
-    z_root = j_inverse(x)
+    z_root = j_inverse_wiki(x)
     z_roots.append(z_root)
   return fundamental_domain(2)+points(z_roots,color='red')
